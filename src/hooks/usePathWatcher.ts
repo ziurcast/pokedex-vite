@@ -4,7 +4,7 @@ import queryString from 'query-string';
 
 const usePathWatcher = () => {
   const location = useLocation();
-  const { current: currentSerach } = useRef(location.search);
+  const [prevSearch, setPreSearch] = useState<string>('');
   const [pathData, setPathData] = useState<any>({
     pathname: location.pathname,
     query: queryString.parse(location.search),
@@ -12,7 +12,8 @@ const usePathWatcher = () => {
 
   useEffect(() => {
     const { search, pathname } = location;
-    if (currentSerach !== search) {
+    if (prevSearch !== search) {
+      setPreSearch(search);
       setPathData({
         pathname,
         query: queryString.parse(search),
