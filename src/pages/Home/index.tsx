@@ -13,7 +13,7 @@ const Home = () => {
   const [pokemonList, setPokemonList] = useState<IPokemonDataBasic[]>([]);
   const [paginationData, setPaginationData] = useState<IPaginationData>({
     offset: 0,
-    limit: 20,
+    limit: 60,
     next: null,
     count: null,
     previous: null,
