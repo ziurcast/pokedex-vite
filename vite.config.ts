@@ -5,6 +5,15 @@ import postcss from './postcss.config.cjs';
 
 export default ({ mode }: { mode: string }) => {
   return defineConfig({
+    build: {
+      lib: {
+        entry: path.resolve(__dirname, 'src/main.tsx'),
+        name: 'Yiomar',
+      },
+      rollupOptions: {
+        external: [/^node:.*/],
+      },
+    },
     plugins: [react()],
     resolve: {
       alias: {
@@ -14,11 +23,6 @@ export default ({ mode }: { mode: string }) => {
     define: { 'process.env': { ...loadEnv(mode, process.cwd()) } },
     css: {
       postcss,
-    },
-    build: {
-      rollupOptions: {
-        external: [/^node:.*/],
-      },
     },
   });
 };
