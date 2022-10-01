@@ -15,5 +15,10 @@ export default ({ mode }: { mode: string }) => {
     css: {
       postcss,
     },
+    build: {
+      rollupOptions: {
+        external: [/^node:.*/],
+      },
+    },
   });
 };
