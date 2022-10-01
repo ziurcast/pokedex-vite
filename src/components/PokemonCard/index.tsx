@@ -1,5 +1,5 @@
 import React from 'react';
-import { colors } from '@tailwind-config';
+import tailwind from '../../../tailwind';
 import LazyImage from '@/components/LazyImage';
 import { IPokemonDataBasic } from '@/models/states.model';
 export { default as PokemonCardLoading } from './PokemonCardLoading';
@@ -9,6 +9,9 @@ interface Props {
 }
 
 const PokemonCard = ({ data }: Props) => {
+  const {
+    theme: { colors },
+  }: any = tailwind;
   const { images, name, types, id } = data;
 
   return (

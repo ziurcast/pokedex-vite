@@ -9,17 +9,9 @@ export default ({ mode }: { mode: string }) => {
     resolve: {
       alias: {
         '@': path.resolve(__dirname, './src'),
-        '@tailwind-config': path.resolve(__dirname, './tailwind.config.cjs'),
       },
     },
     define: { 'process.env': { ...loadEnv(mode, process.cwd()) } },
-    server: {
-      proxy: {
-        '^/assets': {
-          target: 'http://localhost:3000/',
-        },
-      },
-    },
     css: {
       postcss,
     },
