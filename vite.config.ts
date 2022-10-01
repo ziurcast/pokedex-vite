@@ -6,10 +6,6 @@ import postcss from './postcss.config.cjs';
 export default ({ mode }: { mode: string }) => {
   return defineConfig({
     build: {
-      lib: {
-        entry: path.resolve(__dirname, 'src/main.tsx'),
-        name: 'Yiomar',
-      },
       rollupOptions: {
         external: [/^node:.*/],
       },
