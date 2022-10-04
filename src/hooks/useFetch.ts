@@ -6,13 +6,10 @@ const useFetch = () => {
   const [loading, setLoading] = useState(false);
   let controller: AbortController;
 
-  const data = (response: AxiosResponse<any> | AxiosResponse[]) =>
-    Array.isArray(response) ? response.map((response) => response.data) : response.data;
-
   const request = async (IAxiosCall: IAxiosCall<any>) => {
     if (IAxiosCall.controller) controller = IAxiosCall.controller;
     setLoading(true);
-    let response: AxiosResponse<any> | AxiosResponse[];
+    let response = {} as AxiosResponse<any>;
     try {
       response = await IAxiosCall.call;
     } catch (err: any) {
@@ -20,7 +17,7 @@ const useFetch = () => {
       throw err;
     }
     setLoading(false);
-    return data(response);
+    return response.data;
   };
 
   const cancelRequest = () => {
