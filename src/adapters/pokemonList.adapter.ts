@@ -17,8 +17,8 @@ export const pokemonDataAdapter = (data: any) => {
     weight: data.weight,
     baseExperience: data.base_experience,
     images: {
-      frontShiny: data.sprites.other.home.front_shiny,
-      frontDefault: data.sprites.other.home.front_default,
+      frontShiny: data.sprites.other['official-artwork'].front_shiny,
+      frontDefault: data.sprites.other['official-artwork'].front_default,
     },
     types: data.types.map(({ type }: any) => type),
     stats: {
