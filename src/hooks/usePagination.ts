@@ -17,10 +17,6 @@ const usePagination = ({ data: initialData, initialPage, perPage }: IProps) => {
     Number(queryString.parse(search).page) || initialPage
   );
 
-  useEffect(() => {
-    console.log('Cambia data usePagination');
-  }, [data]);
-
   const changePageTo = (nextPage: number) => {
     const query = queryString.parse(search);
     const nextQuery = { ...query, page: nextPage };

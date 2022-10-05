@@ -9,6 +9,7 @@ import useFetch from '@/hooks/useFetch';
 import usePagination from '@/hooks/usePagination';
 
 const Home = () => {
+  const navegate = useNavigate();
   const { loading, request } = useFetch();
   const [pokemonList, setPokemonList] = useState<IPokemonDataBasic[]>([]);
   const { data, changePageTo, totalItems, currentPage, perPage } = usePagination({
@@ -42,7 +43,7 @@ const Home = () => {
         <Fragment>
           <div className="flex flex-wrap py-16">
             {data.map((pokemon: any, idx) => (
-              <PokemonCard data={pokemon} key={idx} />
+              <PokemonCard data={pokemon} key={idx} onClick={(id) => navegate(`/${id}`)} />
             ))}
           </div>
           <Pagination pagination={{ perPage, totalItems, currentPage, changePageTo }} />

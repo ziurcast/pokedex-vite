@@ -10,11 +10,10 @@ import PokemonCardLoading from './PokemonCardLoading';
 
 interface Props {
   data: IPokemonDataBasic;
-  onClick?: () => void;
+  onClick: (id: number) => void;
 }
 
 const PokemonCard = ({ data, onClick }: Props) => {
-  console.log('data', data);
   const colors: any = tailwind.theme.colors;
   const { loading, request } = useFetch();
   const [pokemonData, setPokemonData] = useState<IPokemonData>(pokemonDataInitial);
@@ -37,7 +36,7 @@ const PokemonCard = ({ data, onClick }: Props) => {
       {loading && <PokemonCardLoading />}
 
       {!loading && id && (
-        <div className="w-1/2 md:w-1/5 p-3" onClick={onClick}>
+        <div className="w-1/2 md:w-1/5 p-3" onClick={() => onClick(id)}>
           <div
             style={{ backgroundColor: colors.type[types[0].name] }}
             className={
@@ -49,7 +48,7 @@ const PokemonCard = ({ data, onClick }: Props) => {
             </div>
             <div className="w-full h-full bg-gradient-to-b from-gray-light to-gray-light">
               <LazyImage
-                className="w-4/5 h-56 m-auto object-contain relative z-[2] drop-shadow-lg"
+                className="w-4/5 h-40 md:h-56 m-auto object-contain relative z-[2] drop-shadow-lg"
                 placeholder="/images/placeholder-image.png"
                 src={images.frontDefault}
                 alt={name}

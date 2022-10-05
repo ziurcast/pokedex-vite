@@ -7,17 +7,17 @@ import SpinnerFullScreen from '@/components/SpinnerFullScreen';
 
 const App = () => {
   return (
-    <BrowserRouter>
-      <Suspense fallback={<SpinnerFullScreen />}>
-        <Layout>
+    <Suspense fallback={<SpinnerFullScreen />}>
+      <Layout>
+        <BrowserRouter>
           <Routes>
             {RoutesConfig.map(({ path, Element }) => (
               <Route key={path} path={path} element={<Element />} />
             ))}
           </Routes>
-        </Layout>
-      </Suspense>
-    </BrowserRouter>
+        </BrowserRouter>
+      </Layout>
+    </Suspense>
   );
 };
 

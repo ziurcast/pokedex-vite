@@ -5,11 +5,6 @@ import postcss from './postcss.config.cjs';
 
 export default ({ mode }: { mode: string }) => {
   return defineConfig({
-    build: {
-      rollupOptions: {
-        external: [/^node:.*/],
-      },
-    },
     plugins: [react()],
     resolve: {
       alias: {
