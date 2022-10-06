@@ -10,7 +10,7 @@ interface IProps {
 }
 
 const usePagination = ({ data: initialData, initialPage, perPage }: IProps) => {
-  const navegate = useNavigate();
+  const navigate = useNavigate();
   const { search, pathname } = useLocation();
   const [data, setData] = useState<IPokemonDataBasic[]>([]);
   const [currentPage, setCurrentPage] = useState<number>(
@@ -21,7 +21,7 @@ const usePagination = ({ data: initialData, initialPage, perPage }: IProps) => {
     const query = queryString.parse(search);
     const nextQuery = { ...query, page: nextPage };
     const queryStringify = `?${queryString.stringify(nextQuery)}`;
-    navegate({
+    navigate({
       pathname,
       search: queryStringify,
     });
