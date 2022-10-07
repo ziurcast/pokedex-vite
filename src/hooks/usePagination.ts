@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import queryString from 'query-string';
 import { IPokemonDataBasic } from '@/models/states.model';
 import { useNavigate, useLocation } from 'react-router-dom';
@@ -13,6 +13,7 @@ const usePagination = ({ data: initialData, initialPage, perPage }: IProps) => {
   const navigate = useNavigate();
   const { search, pathname } = useLocation();
   const [data, setData] = useState<IPokemonDataBasic[]>([]);
+  const [totalItems, setTotalItems] = useState(0);
   const [currentPage, setCurrentPage] = useState<number>(
     Number(queryString.parse(search).page) || initialPage
   );
@@ -38,6 +39,7 @@ const usePagination = ({ data: initialData, initialPage, perPage }: IProps) => {
 
   useEffect(() => {
     if (currentPage) {
+      setTotalItems(initialData.length || 0);
       paginate();
     }
   }, [initialData]);
@@ -45,9 +47,9 @@ const usePagination = ({ data: initialData, initialPage, perPage }: IProps) => {
   return {
     data,
     perPage,
+    totalItems,
     currentPage,
     changePageTo,
-    totalItems: initialData.length || 0,
   };
 };
 

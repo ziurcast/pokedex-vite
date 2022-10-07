@@ -33,7 +33,7 @@ const Pagination = ({ pagination }: Props) => {
       from,
       to,
     };
-  }, [currentPage]);
+  }, [currentPage, totalItems]);
 
   const rangePages = useMemo(() => {
     let prevPages = Array.from(Array(currentPage).keys())
@@ -49,7 +49,7 @@ const Pagination = ({ pagination }: Props) => {
       .slice(0, currentPage === 1 ? 4 : currentPage === 2 ? 3 : 2);
 
     return [...prevPages, { number: currentPage }, ...nextPages];
-  }, [currentPage]);
+  }, [currentPage, totalPages]);
 
   return (
     <div className="drop-shadow-lg sticky rounded-lg bottom-2 flex items-center justify-between bg-main px-4 py-3 mb-2">
