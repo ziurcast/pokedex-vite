@@ -4,7 +4,11 @@ export const pokemonListAdapter = (data: any) => {
     next,
     count,
     previous,
-    pokemons: results.map((item: any, idx: number) => ({ ...item, id: idx + 1 })),
+    pokemons: results.map((item: any, idx: number) => ({
+      ...item,
+      id: idx + 1,
+      name: `${item.name} ${String(Number(idx + 1)).padStart(3, '0')}`,
+    })),
   };
 };
 

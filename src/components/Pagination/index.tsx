@@ -15,8 +15,8 @@ const Pagination = ({ pagination }: Props) => {
   const { perPage, totalItems, currentPage, changePageTo } = pagination;
 
   const handleChangePage = (pag: number) => {
+    window.scrollTo({ top: 0 });
     changePageTo(pag);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const totalPages = useMemo(() => {

@@ -1,27 +1,35 @@
-import React, { useEffect, Fragment, useState, ChangeEvent } from 'react';
+import React, { useEffect, Fragment, useState, ChangeEvent, useRef } from 'react';
 import useFetch from '@/hooks/useFetch';
 import { useNavigate } from 'react-router-dom';
 import { IAppStore } from '@/models/store.model';
 import Pagination from '@/components/Pagination';
 import usePagination from '@/hooks/usePagination';
 import { useDispatch, useSelector } from 'react-redux';
-import { setAllPokemons } from '@/store/states/pokemons';
+import { setAllPokemons, setFilteredPokemons } from '@/store/states/pokemons';
 import { getAllPokemons } from '@/services/pokemonLists.service';
 import { pokemonListAdapter } from '@/adapters/pokemonList.adapter';
 import PokemonCard, { PokemonCardLoading } from '@/components/PokemonCard';
 import Input from '@/components/common/Input';
 import { MagnifyingGlassIcon } from '@heroicons/react/20/solid';
+import useFilters from '@/hooks/useFilters';
+import { filterBy } from '@/utils/filters';
 
 const Home = () => {
-  const navigate = useNavigate();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const searchTimeOut: any = useRef(0);
   const { loading, request } = useFetch();
-  const [search, setSearch] = useState('');
-  const { allPokemons } = useSelector((store: IAppStore) => store.pokemons);
+  const [loadingSearch, setLoadingSearch] = useState(false);
+  const { setFilter, filterValues, removeFilter, hasFilters } = useFilters();
+  const { allPokemons, filteredPokemons } = useSelector((store: IAppStore) => store.pokemons);
   const { data, changePageTo, totalItems, currentPage, perPage } = usePagination({
     perPage: 20,
     initialPage: 1,
-    data: allPokemons,
+    data: hasFilters ? filteredPokemons : allPokemons,
+  });
+  const [filters, setFilters] = useState<any>({
+    name: '',
+    ...filterValues,
   });
 
   const handleGetPokemons = async () => {
@@ -38,31 +46,52 @@ const Home = () => {
     }
   }, []);
 
-  const handleSearch = (e: ChangeEvent<HTMLInputElement>) => {
-    const { value } = e.target;
-    setSearch(value);
+  useEffect(() => {
+    if (hasFilters && allPokemons.length) {
+      const filteredPokemons = filterBy(allPokemons, filterValues);
+      dispatch(setFilteredPokemons(filteredPokemons));
+    }
+  }, [hasFilters, filterValues]);
+
+  const handleOnChangeFilters = (e: ChangeEvent<HTMLInputElement>) => {
+    const { value, name } = e.target;
+    const valueTrim = value.trim();
+
+    setFilters((prev: any) => ({ ...prev, [name]: valueTrim }));
+
+    if (valueTrim && valueTrim.length > 1 && name === 'name') {
+      setLoadingSearch(true);
+      searchTimeOut.current = setTimeout(() => {
+        changePageTo(1);
+        setLoadingSearch(false);
+        setFilter({ [name]: valueTrim });
+      }, 2000);
+    } else {
+      removeFilter(name);
+    }
+  };
+
+  const handleOnCleanFilters = (name: string) => {
+    removeFilter(name);
+    setFilters((prev: any) => ({ ...prev, [name]: '' }));
   };
 
   return (
     <Fragment>
       <div className="pt-16 px-3">
         <Input
-          value={search}
-          loadig={false}
+          name="name"
           cleaneable={true}
-          onChange={handleSearch}
+          autoComplete="off"
+          value={filters.name}
+          loadig={loadingSearch}
           Icon={MagnifyingGlassIcon}
-          onClean={() => setSearch('')}
-          placeholder="Buscar por nombre o número"
+          onChange={handleOnChangeFilters}
+          placeholder="Search by name or id"
+          onClean={() => handleOnCleanFilters('name')}
+          onKeyDown={() => clearTimeout(searchTimeOut.current)}
         />
       </div>
-      {loading && (
-        <div className="flex flex-wrap py-16">
-          {Array.from(Array(20).keys()).map((key) => (
-            <PokemonCardLoading key={`skeleton-${key}`} />
-          ))}
-        </div>
-      )}
       {data.length > 0 && !loading && (
         <Fragment>
           <div className="flex flex-wrap py-16">
@@ -72,6 +101,13 @@ const Home = () => {
           </div>
           <Pagination pagination={{ perPage, totalItems, currentPage, changePageTo }} />
         </Fragment>
+      )}
+      {loading && (
+        <div className="flex flex-wrap py-16">
+          {Array.from(Array(20).keys()).map((key) => (
+            <PokemonCardLoading key={`skeleton-${key}`} />
+          ))}
+        </div>
       )}
     </Fragment>
   );

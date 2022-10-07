@@ -2,26 +2,27 @@ import { useEffect, useRef, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import queryString from 'query-string';
 
-const usePathWatcher = () => {
-  const location = useLocation();
+const useUrlWatcher = () => {
+  const { search, pathname } = useLocation();
   const [prevSearch, setPreSearch] = useState<string>('');
   const [pathData, setPathData] = useState<any>({
-    pathname: location.pathname,
-    query: queryString.parse(location.search),
+    pathname,
+    queryString: search,
+    queryObject: queryString.parse(search) || {},
   });
 
   useEffect(() => {
-    const { search, pathname } = location;
     if (prevSearch !== search) {
       setPreSearch(search);
       setPathData({
         pathname,
-        query: queryString.parse(search),
+        queryString: search,
+        queryObject: queryString.parse(search) || {},
       });
     }
-  }, [location]);
+  }, [search]);
 
   return pathData;
 };
 
-export default usePathWatcher;
+export default useUrlWatcher;

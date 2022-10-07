@@ -1,4 +1,4 @@
-import { useState, useCallback, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import queryString from 'query-string';
 import { IPokemonDataBasic } from '@/models/states.model';
 import { useNavigate, useLocation } from 'react-router-dom';
@@ -17,6 +17,12 @@ const usePagination = ({ data: initialData, initialPage, perPage }: IProps) => {
     Number(queryString.parse(search).page) || initialPage
   );
 
+  const paginate = (nextPage?: number) => {
+    const page = nextPage || currentPage;
+    const nextData = initialData.slice((page - 1) * perPage, page * perPage);
+    setData([...nextData]);
+  };
+
   const changePageTo = (nextPage: number) => {
     const query = queryString.parse(search);
     const nextQuery = { ...query, page: nextPage };
@@ -27,18 +33,14 @@ const usePagination = ({ data: initialData, initialPage, perPage }: IProps) => {
     });
 
     setCurrentPage(nextPage);
-  };
-
-  const paginate = () => {
-    const nextData = initialData.slice((currentPage - 1) * perPage, currentPage * perPage);
-    setData([...nextData]);
+    paginate(nextPage);
   };
 
   useEffect(() => {
-    if (initialData.length && currentPage) {
+    if (currentPage) {
       paginate();
     }
-  }, [initialData, currentPage]);
+  }, [initialData]);
 
   return {
     data,
