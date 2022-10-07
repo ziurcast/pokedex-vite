@@ -1,20 +1,22 @@
-import React, { useEffect, useState, Fragment } from 'react';
-import { getAllPokemons } from '@/services/pokemonLists.service';
-import { IPokemonDataBasic } from '@/models/states.model';
-import { pokemonListAdapter } from '@/adapters/pokemonList.adapter';
-import { useNavigate } from 'react-router-dom';
-import Pagination from '@/components/Pagination';
-import PokemonCard, { PokemonCardLoading } from '@/components/PokemonCard';
+import React, { useEffect, Fragment, useState, ChangeEvent } from 'react';
 import useFetch from '@/hooks/useFetch';
+import { useNavigate } from 'react-router-dom';
+import { IAppStore } from '@/models/store.model';
+import Pagination from '@/components/Pagination';
 import usePagination from '@/hooks/usePagination';
 import { useDispatch, useSelector } from 'react-redux';
 import { setAllPokemons } from '@/store/states/pokemons';
-import { IAppStore } from '@/models/store.model';
+import { getAllPokemons } from '@/services/pokemonLists.service';
+import { pokemonListAdapter } from '@/adapters/pokemonList.adapter';
+import PokemonCard, { PokemonCardLoading } from '@/components/PokemonCard';
+import Input from '@/components/common/Input';
+import { MagnifyingGlassIcon } from '@heroicons/react/20/solid';
 
 const Home = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { loading, request } = useFetch();
+  const [search, setSearch] = useState('');
   const { allPokemons } = useSelector((store: IAppStore) => store.pokemons);
   const { data, changePageTo, totalItems, currentPage, perPage } = usePagination({
     perPage: 20,
@@ -31,11 +33,29 @@ const Home = () => {
   };
 
   useEffect(() => {
-    handleGetPokemons();
+    if (!allPokemons.length) {
+      handleGetPokemons();
+    }
   }, []);
+
+  const handleSearch = (e: ChangeEvent<HTMLInputElement>) => {
+    const { value } = e.target;
+    setSearch(value);
+  };
 
   return (
     <Fragment>
+      <div className="pt-16 px-3">
+        <Input
+          value={search}
+          loadig={false}
+          cleaneable={true}
+          onChange={handleSearch}
+          Icon={MagnifyingGlassIcon}
+          onClean={() => setSearch('')}
+          placeholder="Buscar por nombre o número"
+        />
+      </div>
       {loading && (
         <div className="flex flex-wrap py-16">
           {Array.from(Array(20).keys()).map((key) => (

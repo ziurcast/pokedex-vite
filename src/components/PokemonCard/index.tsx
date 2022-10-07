@@ -7,6 +7,7 @@ import { getPokemonDetail } from '@/services/pokemonLists.service';
 import { pokemonDataAdapter } from '@/adapters/pokemonList.adapter';
 export { default as PokemonCardLoading } from './PokemonCardLoading';
 import PokemonCardLoading from './PokemonCardLoading';
+import Tooltip from '@/components/Tooltip';
 
 interface Props {
   data: IPokemonDataBasic;
@@ -40,7 +41,7 @@ const PokemonCard = ({ data, onClick }: Props) => {
           <div
             style={{ backgroundColor: colors.type[types[0].name] }}
             className={
-              'p-2 relative overflow-hidden rounded-lg transition ease-in-out duration-300 drop-shadow-xl cursor-pointer hover:scale-105 hover:-translate-y-1'
+              'p-2 relative overflow-hidden rounded-lg transition ease-in-out duration-300 drop-shadow-xl cursor-pointer hover:-translate-y-2'
             }
           >
             <div className="flex items-center rounded-br-lg justify-center z-[3] absolute bg-black top-0 p-2 left-0 min-w-10 h-10">
@@ -53,25 +54,31 @@ const PokemonCard = ({ data, onClick }: Props) => {
                 src={images.frontDefault}
                 alt={name}
               />
-              <div className="w-full relative z-[2] py-3">
+              <div className="w-full py-3">
                 <h3 className="w-fit m-auto px-3 rounded-xl  font-bold text-center capitalize text-gray-light bg-black">
                   {name}
                 </h3>
                 <div className="flex w-full justify-center mt-2">
                   {!!types.length &&
-                    types.map(({ name }) => (
-                      <div
+                    types.map(({ name }, idx) => (
+                      <Tooltip
                         key={name}
-                        className="rounded-full p-1 mx-2 drop-shadow-lg"
-                        style={{ backgroundColor: colors.type[name] }}
+                        message={name}
+                        bgColor={colors.type[name]}
+                        pos={idx ? 'right' : 'left'}
                       >
-                        <LazyImage
-                          alt={name}
-                          className="w-4 h-4"
-                          src={`/svg/${name}.svg`}
-                          placeholder="/images/placeholder-image.png"
-                        />
-                      </div>
+                        <div
+                          className="rounded-full p-1 mx-2 drop-shadow-lg"
+                          style={{ backgroundColor: colors.type[name] }}
+                        >
+                          <LazyImage
+                            alt={name}
+                            className="w-4 h-4"
+                            src={`/svg/${name}.svg`}
+                            placeholder="/images/placeholder-image.png"
+                          />
+                        </div>
+                      </Tooltip>
                     ))}
                 </div>
               </div>

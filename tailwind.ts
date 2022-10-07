@@ -10,6 +10,7 @@ export default {
       white: '#FFFFFF',
       'gray-light': '#f8fafc',
       'gray-mid': '#A6A6A6',
+      'gray-dark': '#705746',
       black: '#2B2B2B',
       type: {
         normal: '#A8A77A',
