@@ -7,7 +7,6 @@ import { getPokemonDetail } from '@/services/pokemonLists.service';
 import { pokemonDataAdapter } from '@/adapters/pokemonList.adapter';
 export { default as PokemonCardLoading } from './PokemonCardLoading';
 import PokemonCardLoading from './PokemonCardLoading';
-import Tooltip from '@/components/Tooltip';
 
 interface Props {
   data: IPokemonDataBasic;
@@ -55,30 +54,24 @@ const PokemonCard = ({ data, onClick }: Props) => {
                 alt={name}
               />
               <div className="w-full py-3">
-                <h3 className="w-fit m-auto px-3 rounded-md  font-bold text-center capitalize text-gray-light bg-black">
+                <h3 className="w-fit m-auto px-3 rounded-md font-bold text-center capitalize text-gray-light bg-black">
                   {name}
                 </h3>
                 <div className="flex w-full justify-center mt-2">
                   {!!types.length &&
                     types.map(({ name }, idx) => (
-                      <Tooltip
-                        key={name}
-                        message={name}
-                        bgColor={colors.type[name]}
-                        pos={idx ? 'right' : 'left'}
+                      <div
+                        className="rounded-md p-1 mx-1 drop-shadow-lg flex items-center"
+                        style={{ backgroundColor: colors.type[name] }}
                       >
-                        <div
-                          className="rounded-full p-1 mx-2 drop-shadow-lg"
-                          style={{ backgroundColor: colors.type[name] }}
-                        >
-                          <LazyImage
-                            alt={name}
-                            className="w-4 h-4"
-                            src={`/svg/${name}.svg`}
-                            placeholder="/images/placeholder-image.png"
-                          />
-                        </div>
-                      </Tooltip>
+                        <LazyImage
+                          alt={name}
+                          className="w-4 h-4 p-0.5"
+                          src={`/svg/${name}.svg`}
+                          placeholder="/images/placeholder-image.png"
+                        />
+                        <p className="text-gray-light capitalize text-sm px-1">{name}</p>
+                      </div>
                     ))}
                 </div>
               </div>
