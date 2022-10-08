@@ -15,7 +15,7 @@ const Pagination = ({ pagination }: Props) => {
   const { perPage, totalItems, currentPage, changePageTo } = pagination;
 
   const handleChangePage = (pag: number) => {
-    window.scrollTo({ top: 0 });
+    window.scrollTo({ top: 0, behavior: 'smooth' });
     changePageTo(pag);
   };
 

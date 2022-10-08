@@ -13,7 +13,7 @@ const Input = ({ Icon, loadig, cleaneable, onClean, ...inputProps }: Props) => {
     <div className="w-72 relative">
       <input
         {...inputProps}
-        className="h-12 w-full py-2 px-3 rounded-lg bg-white border border-gray-mid outline-none transition ease-in-out delay-200 focus:border-gray-dark"
+        className="h-12 w-full py-2 pr-3 pl-4 rounded-lg bg-white border border-gray-mid outline-none transition ease-in-out delay-200 focus:border-gray-dark"
       />
       {Icon && !loadig && (cleaneable ? !inputProps.value : true) && (
         <Icon className="w-6 absolute top-1/2 right-3 -translate-y-1/2 text-gray-mid" />

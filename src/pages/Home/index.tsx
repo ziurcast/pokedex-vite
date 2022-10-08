@@ -78,37 +78,46 @@ const Home = () => {
 
   return (
     <Fragment>
-      <div className="pt-16 px-3">
-        <Input
-          name="name"
-          cleaneable={true}
-          autoComplete="off"
-          value={filters.name}
-          loadig={loadingSearch}
-          Icon={MagnifyingGlassIcon}
-          onChange={handleOnChangeFilters}
-          placeholder="Search by name or id"
-          onClean={() => handleOnCleanFilters('name')}
-          onKeyDown={() => clearTimeout(searchTimeOut.current)}
-        />
+      <div className="bg-black drop-shadow-md rounded-b-2xl">
+        <div className="container px-7 py-12">
+          <Input
+            name="name"
+            cleaneable={true}
+            autoComplete="off"
+            value={filters.name}
+            loadig={loadingSearch}
+            Icon={MagnifyingGlassIcon}
+            onChange={handleOnChangeFilters}
+            placeholder="Search by name or id"
+            onClean={() => handleOnCleanFilters('name')}
+            onKeyDown={() => clearTimeout(searchTimeOut.current)}
+          />
+        </div>
       </div>
-      {data.length > 0 && !loading && (
-        <Fragment>
+
+      <div className="container">
+        {data.length > 0 && !loading && (
+          <Fragment>
+            <div className="flex flex-wrap py-16">
+              {data.map((pokemon: any, idx) => (
+                <PokemonCard
+                  data={pokemon}
+                  key={idx}
+                  onClick={(id) => navigate(`/pokemon/${id}`)}
+                />
+              ))}
+            </div>
+            <Pagination pagination={{ perPage, totalItems, currentPage, changePageTo }} />
+          </Fragment>
+        )}
+        {loading && (
           <div className="flex flex-wrap py-16">
-            {data.map((pokemon: any, idx) => (
-              <PokemonCard data={pokemon} key={idx} onClick={(id) => navigate(`/pokemon/${id}`)} />
+            {Array.from(Array(20).keys()).map((key) => (
+              <PokemonCardLoading key={`skeleton-${key}`} />
             ))}
           </div>
-          <Pagination pagination={{ perPage, totalItems, currentPage, changePageTo }} />
-        </Fragment>
-      )}
-      {loading && (
-        <div className="flex flex-wrap py-16">
-          {Array.from(Array(20).keys()).map((key) => (
-            <PokemonCardLoading key={`skeleton-${key}`} />
-          ))}
-        </div>
-      )}
+        )}
+      </div>
     </Fragment>
   );
 };
