@@ -3,7 +3,6 @@ import store from '@/store';
 import Layout from '@/components/Layout';
 import RoutesConfig from './routes';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import './App.css';
 import SpinnerFullScreen from '@/components/SpinnerFullScreen';
 import { Provider } from 'react-redux';
 
