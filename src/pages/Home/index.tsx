@@ -85,10 +85,11 @@ const Home = () => {
             cleaneable={true}
             autoComplete="off"
             value={filters.name}
-            loadig={loadingSearch}
             Icon={MagnifyingGlassIcon}
             onChange={handleOnChangeFilters}
+            loadig={loadingSearch || loading}
             placeholder="Search by name or id"
+            disabled={loadingSearch || loading}
             onClean={() => handleOnCleanFilters('name')}
             onKeyDown={() => clearTimeout(searchTimeOut.current)}
           />

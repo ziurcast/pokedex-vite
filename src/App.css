@@ -1,0 +1,9 @@
+@tailwind base;
+
+body {
+  background-image: url('/public/images/pokemon-pattnern.jpg');
+}
+
+@tailwind components;
+
+@tailwind utilities;

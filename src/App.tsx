@@ -5,11 +5,12 @@ import RoutesConfig from './routes';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import SpinnerFullScreen from '@/components/SpinnerFullScreen';
 import { Provider } from 'react-redux';
+import './App.css';
 
 const App = () => {
   return (
-    <Suspense fallback={<SpinnerFullScreen />}>
-      <Provider store={store}>
+    <Provider store={store}>
+      <Suspense fallback={<SpinnerFullScreen />}>
         <Layout>
           <BrowserRouter>
             <Routes>
@@ -19,8 +20,8 @@ const App = () => {
             </Routes>
           </BrowserRouter>
         </Layout>
-      </Provider>
-    </Suspense>
+      </Suspense>
+    </Provider>
   );
 };
 
