@@ -78,8 +78,8 @@ const Home = () => {
 
   return (
     <Fragment>
-      <div className="bg-black drop-shadow-md rounded-b-2xl">
-        <div className="container px-7 py-12">
+      <div className="bg-black drop-shadow-md">
+        <div className="container px-7 py-10">
           <Input
             name="name"
             cleaneable={true}

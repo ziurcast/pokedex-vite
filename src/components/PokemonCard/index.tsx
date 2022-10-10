@@ -36,7 +36,7 @@ const PokemonCard = ({ data, onClick }: Props) => {
       {loading && <PokemonCardLoading />}
 
       {!loading && id && (
-        <div className="w-1/2 md:w-1/5 p-3" onClick={() => onClick(id)}>
+        <div className="w-1/2 md:w-1/3 lg:w-1/5 p-3" onClick={() => onClick(id)}>
           <div
             style={{ backgroundColor: colors.type[types[0].name] }}
             className={
@@ -48,20 +48,20 @@ const PokemonCard = ({ data, onClick }: Props) => {
             </div>
             <div className="w-full h-full bg-gradient-to-b from-gray-light to-white">
               <LazyImage
-                className="w-4/5 h-40 md:h-56 m-auto object-contain relative z-[2] drop-shadow-lg"
+                className="w-4/5 h-40 lg:h-52 m-auto object-contain relative z-[2] drop-shadow-lg"
                 placeholder="/images/placeholder-image.png"
                 src={images.frontDefault}
                 alt={name}
               />
               <div className="w-full py-3">
-                <h3 className="w-fit m-auto px-3 rounded-md font-bold text-center capitalize text-gray-light bg-black">
+                <h3 className="w-fit h-6 m-auto px-3 rounded-md font-bold text-center capitalize text-gray-light bg-black">
                   {name}
                 </h3>
                 <div className="flex w-full justify-center mt-2">
                   {!!types.length &&
                     types.map(({ name }, idx) => (
                       <div
-                        className="rounded-md p-1 mx-1 drop-shadow-lg flex items-center"
+                        className="rounded-md h-6 p-1 mx-1 drop-shadow-lg flex items-center"
                         style={{ backgroundColor: colors.type[name] }}
                       >
                         <LazyImage
