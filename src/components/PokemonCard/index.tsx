@@ -61,8 +61,9 @@ const PokemonCard = ({ data, onClick }: Props) => {
                   {!!types.length &&
                     types.map(({ name }, idx) => (
                       <div
-                        className="rounded-md h-6 p-1 mx-1 drop-shadow-lg flex items-center"
+                        key={`item-${idx}`}
                         style={{ backgroundColor: colors.type[name] }}
+                        className="rounded-md h-6 p-1 mx-1 drop-shadow-lg flex items-center"
                       >
                         <LazyImage
                           alt={name}

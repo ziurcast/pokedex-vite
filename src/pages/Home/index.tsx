@@ -51,7 +51,7 @@ const Home = () => {
       const filteredPokemons = filterBy(allPokemons, filterValues);
       dispatch(setFilteredPokemons(filteredPokemons));
     }
-  }, [hasFilters, filterValues]);
+  }, [hasFilters, filterValues, allPokemons]);
 
   const handleOnChangeFilters = (e: ChangeEvent<HTMLInputElement>) => {
     const { value, name } = e.target;
@@ -66,7 +66,7 @@ const Home = () => {
         setLoadingSearch(false);
         setFilter({ [name]: valueTrim });
       }, 2000);
-    } else {
+    } else if (!valueTrim) {
       removeFilter(name);
     }
   };
@@ -84,12 +84,12 @@ const Home = () => {
             name="name"
             cleaneable={true}
             autoComplete="off"
+            disabled={loading}
             value={filters.name}
             Icon={MagnifyingGlassIcon}
             onChange={handleOnChangeFilters}
             loadig={loadingSearch || loading}
             placeholder="Search by name or id"
-            disabled={loadingSearch || loading}
             onClean={() => handleOnCleanFilters('name')}
             onKeyDown={() => clearTimeout(searchTimeOut.current)}
           />
@@ -102,8 +102,8 @@ const Home = () => {
             <div className="flex flex-wrap py-16">
               {data.map((pokemon: any, idx) => (
                 <PokemonCard
+                  key={`pokemon-${idx}`}
                   data={pokemon}
-                  key={idx}
                   onClick={(id) => navigate(`/pokemon/${id}`)}
                 />
               ))}
