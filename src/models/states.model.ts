@@ -1,7 +1,7 @@
 export interface IPokemonData {
   id: number | null;
   name: string;
-  order: number | null;
+  order?: number | null;
   height: number | null;
   weight: number | null;
   baseExperience: number | null;
@@ -20,6 +20,8 @@ export interface IPokemonData {
     attack: number | null;
     defense: number | null;
     speed: number | null;
+    specialAttack: number | null;
+    specialDefense: number | null;
   };
 }
 
@@ -45,6 +47,8 @@ export const pokemonDataInitial: IPokemonData = {
     attack: null,
     defense: null,
     speed: null,
+    specialAttack: null,
+    specialDefense: null,
   },
 };
 
