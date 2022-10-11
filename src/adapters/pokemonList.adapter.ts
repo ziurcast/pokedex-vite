@@ -27,9 +27,11 @@ export const pokemonDataAdapter = (data: any) => {
     types: data.types.map(({ type }: any) => type),
     stats: {
       hp: data.stats.find(({ stat }: any) => stat.name === 'hp').base_stat,
+      speed: data.stats.find(({ stat }: any) => stat.name === 'speed').base_stat,
       attack: data.stats.find(({ stat }: any) => stat.name === 'attack').base_stat,
       defense: data.stats.find(({ stat }: any) => stat.name === 'defense').base_stat,
-      speed: data.stats.find(({ stat }: any) => stat.name === 'speed').base_stat,
+      specialAttack: data.stats.find(({ stat }: any) => stat.name === 'special-attack').base_stat,
+      specialDefense: data.stats.find(({ stat }: any) => stat.name === 'special-defense').base_stat,
     },
   };
 };
