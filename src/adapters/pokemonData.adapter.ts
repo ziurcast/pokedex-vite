@@ -6,12 +6,30 @@ export const pokemonDataAdapter = (data: any) => {
     weight: data.weight,
     baseExperience: data.base_experience,
     stats: {
-      hp: data.stats.find(({ stat }: any) => stat.name === 'hp').base_stat,
-      speed: data.stats.find(({ stat }: any) => stat.name === 'speed').base_stat,
-      attack: data.stats.find(({ stat }: any) => stat.name === 'attack').base_stat,
-      defense: data.stats.find(({ stat }: any) => stat.name === 'defense').base_stat,
-      specialAttack: data.stats.find(({ stat }: any) => stat.name === 'special-attack').base_stat,
-      specialDefense: data.stats.find(({ stat }: any) => stat.name === 'special-defense').base_stat,
+      hp: {
+        value: data.stats.find(({ stat }: any) => stat.name === 'hp').base_stat,
+        label: 'Hp',
+      },
+      speed: {
+        value: data.stats.find(({ stat }: any) => stat.name === 'speed').base_stat,
+        label: 'Speed',
+      },
+      attack: {
+        value: data.stats.find(({ stat }: any) => stat.name === 'attack').base_stat,
+        label: 'Attack',
+      },
+      defense: {
+        value: data.stats.find(({ stat }: any) => stat.name === 'defense').base_stat,
+        label: 'Defense',
+      },
+      specialAttack: {
+        value: data.stats.find(({ stat }: any) => stat.name === 'special-attack').base_stat,
+        label: 'Special Attack',
+      },
+      specialDefense: {
+        value: data.stats.find(({ stat }: any) => stat.name === 'special-defense').base_stat,
+        label: 'Special Defense',
+      },
     },
     images: {
       frontShiny: data.sprites.other['official-artwork'].front_shiny,

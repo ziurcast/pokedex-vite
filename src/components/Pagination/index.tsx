@@ -52,7 +52,7 @@ const Pagination = ({ pagination }: Props) => {
   }, [currentPage, totalPages]);
 
   return (
-    <div className="drop-shadow-lg sticky rounded-lg bottom-2 flex items-center justify-between bg-main px-4 py-3 mb-2">
+    <div className="drop-shadow-lg sticky rounded-lg bottom-3 flex items-center justify-between bg-main px-4 py-3 mb-3">
       <div className="flex flex-1 items-center justify-center md:justify-between">
         <div className="hidden md:block">
           <p className="text-sm text-silver">

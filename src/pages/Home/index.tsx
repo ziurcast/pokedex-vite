@@ -1,6 +1,6 @@
 import React, { useEffect, Fragment, useState, ChangeEvent, useRef } from 'react';
 import useFetch from '@/hooks/useFetch';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { IAppStore } from '@/models/store.model';
 import Pagination from '@/components/Pagination';
 import usePagination from '@/hooks/usePagination';
@@ -17,6 +17,7 @@ import { filterBy } from '@/utils/filters';
 const Home = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const location = useLocation();
   const searchTimeOut: any = useRef(0);
   const { loading, request } = useFetch();
   const [loadingSearch, setLoadingSearch] = useState(false);
@@ -104,7 +105,7 @@ const Home = () => {
                 <PokemonCard
                   key={`pokemon-${idx}`}
                   data={pokemon}
-                  onClick={(id) => navigate(`/pokemon/${id}`)}
+                  onClick={(id) => navigate(`/pokemon/${id}`, { state: { from: location } })}
                 />
               ))}
             </div>

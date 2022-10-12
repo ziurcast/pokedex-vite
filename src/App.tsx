@@ -11,15 +11,15 @@ const App = () => {
   return (
     <Provider store={store}>
       <Suspense fallback={<SpinnerFullScreen />}>
-        <Layout>
-          <BrowserRouter>
+        <BrowserRouter>
+          <Layout>
             <Routes>
               {RoutesConfig.map(({ path, Element }) => (
                 <Route key={path} path={path} element={<Element />} />
               ))}
             </Routes>
-          </BrowserRouter>
-        </Layout>
+          </Layout>
+        </BrowserRouter>
       </Suspense>
     </Provider>
   );
