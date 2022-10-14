@@ -80,27 +80,41 @@ const Home = () => {
   return (
     <Fragment>
       <div className="bg-black drop-shadow-md">
-        <div className="container px-7 py-10">
-          <Input
-            name="name"
-            cleaneable={true}
-            autoComplete="off"
-            disabled={loading}
-            value={filters.name}
-            Icon={MagnifyingGlassIcon}
-            onChange={handleOnChangeFilters}
-            loadig={loadingSearch || loading}
-            placeholder="Search by name or id"
-            onClean={() => handleOnCleanFilters('name')}
-            onKeyDown={() => clearTimeout(searchTimeOut.current)}
-          />
+        <div className="container">
+          <div className="h-28 flex justify-between items-center">
+            <Input
+              name="name"
+              cleaneable={true}
+              autoComplete="off"
+              disabled={loading}
+              value={filters.name}
+              Icon={MagnifyingGlassIcon}
+              onChange={handleOnChangeFilters}
+              loadig={loadingSearch || loading}
+              placeholder="Search by name or id"
+              onClean={() => handleOnCleanFilters('name')}
+              onKeyDown={() => clearTimeout(searchTimeOut.current)}
+            />
+            <div className="hidden md:flex items-end">
+              {!loading && (
+                <Fragment>
+                  <h1 className="text-white font-bold text-3xl">{allPokemons.length}</h1>
+                  <img
+                    className="w-14 items-end"
+                    src="/svg/pokemon-silhouette.svg"
+                    alt="pokemons"
+                  />
+                </Fragment>
+              )}
+            </div>
+          </div>
         </div>
       </div>
 
       <div className="container">
         {data.length > 0 && !loading && (
           <Fragment>
-            <div className="flex flex-wrap py-16">
+            <div className="flex flex-wrap py-16 gap-4 justify-center">
               {data.map((pokemon: any, idx) => (
                 <PokemonCard
                   key={`pokemon-${idx}`}

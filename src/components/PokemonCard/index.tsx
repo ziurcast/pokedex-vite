@@ -34,9 +34,8 @@ const PokemonCard = ({ data, onClick }: Props) => {
   return (
     <Fragment>
       {loading && <PokemonCardLoading />}
-
       {!loading && id && (
-        <div className="w-1/2 md:w-1/3 lg:w-1/5 p-3" onClick={() => onClick(id)}>
+        <div className="w-64" onClick={() => onClick(id)}>
           <div
             style={{ backgroundColor: colors.type[types[0].name] }}
             className={

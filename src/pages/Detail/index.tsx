@@ -32,9 +32,9 @@ const Detail = () => {
   return (
     <Fragment>
       <div className="bg-black drop-shadow-md">
-        <div className="container px-7 py-10">
+        <div className="container">
           <div
-            className="h-12 flex items-center cursor-pointer"
+            className="h-28 flex items-center cursor-pointer"
             onClick={() => navigate(location.state ? location.state.from : '/')}
           >
             <ArrowLeftCircleIcon className="text-white w-8" />
