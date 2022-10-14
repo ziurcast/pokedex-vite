@@ -45,7 +45,7 @@ const PokemonCard = ({ data, onClick }: Props) => {
             <div className="flex items-center rounded-br-lg justify-center z-[3] absolute bg-black top-0 p-2 left-0 min-w-10 h-10">
               <h2 className="text-gray-light font-bold">{String(Number(id)).padStart(3, '0')}</h2>
             </div>
-            <div className="w-full h-full bg-gradient-to-b from-gray-light to-white">
+            <div className="w-full h-full bg-gradient-to-b from-silver to-white">
               <LazyImage
                 className="w-4/5 h-40 lg:h-52 m-auto object-contain relative z-[2] drop-shadow-lg"
                 placeholder="/images/placeholder-image.png"

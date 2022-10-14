@@ -79,7 +79,7 @@ const Home = () => {
 
   return (
     <Fragment>
-      <div className="bg-black drop-shadow-md">
+      <div className="bg-black drop-shadow-md rounded-b-3xl">
         <div className="container">
           <div className="h-28 flex justify-between items-center">
             <Input
