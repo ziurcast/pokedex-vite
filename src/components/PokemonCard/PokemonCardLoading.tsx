@@ -5,7 +5,7 @@ const PokemonCardLoading = () => {
     <div className="animate-pulse w-64">
       <div
         className={
-          'p-2 h-72 bg-gradient-to-b from-gray-light to-white flex items-center justify-center rounded-lg drop-shadow-lg'
+          'p-2 h-72 bg-gradient-to-b from-silver to-white flex items-center justify-center rounded-lg drop-shadow-lg'
         }
       >
         <div className="animate-bounce">

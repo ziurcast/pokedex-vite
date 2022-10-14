@@ -31,7 +31,7 @@ const Detail = () => {
 
   return (
     <Fragment>
-      <div className="bg-black drop-shadow-md">
+      <div className="bg-black drop-shadow-md rounded-b-3xl">
         <div className="container">
           <div
             className="h-28 flex items-center cursor-pointer"
@@ -70,7 +70,7 @@ const Detail = () => {
         </div>
         <div className="flex flex-wrap pb-16 w-11/12 m-auto">
           <div className="w-1/2 h-auto p-3">
-            <div className="h-full py-8 rounded-lg bg-gradient-to-b from-gray-light to-white drop-shadow-md">
+            <div className="h-full py-8 rounded-lg bg-gradient-to-b from-silver to-white drop-shadow-md">
               <LazyImage
                 className="max-w-96 max-h-96 m-auto object-contain drop-shadow-lg"
                 placeholder="/images/placeholder-image.png"
@@ -81,7 +81,7 @@ const Detail = () => {
             </div>
           </div>
           <div className="w-1/2 h-auto p-3">
-            <div className="h-full rounded-lg bg-gradient-to-b from-gray-light to-white drop-shadow-md"></div>
+            <div className="h-full rounded-lg bg-gradient-to-b from-silver to-white drop-shadow-md"></div>
           </div>
         </div>
       </div>

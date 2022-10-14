@@ -1,7 +1,7 @@
 @tailwind base;
 
 body {
-  /* background-image: url('/public/images/pokemon-pattnern.jpg'); */
+  background-image: url('/public/images/pokemon-pattnern.jpg');
 }
 
 @tailwind components;
