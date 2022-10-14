@@ -5,7 +5,7 @@ export default {
       body: ['"Open Sans"'],
     },
     colors: {
-      main: '#EF5350',
+      main: '#0C3348',
       silver: '#E5E5E5',
       white: '#FFFFFF',
       'gray-light': '#f8fafc',
