@@ -8,11 +8,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setAllPokemons, setFilteredPokemons } from '@/store/states/pokemons';
 import { getAllPokemons } from '@/services/pokemonLists.service';
 import { pokemonListAdapter } from '@/adapters/pokemonList.adapter';
-import PokemonCard, { PokemonCardLoading } from '@/components/PokemonCard';
+import PokemonCard from '@/components/Cards/PokemonCard';
 import Input from '@/components/common/Input';
 import { MagnifyingGlassIcon } from '@heroicons/react/20/solid';
 import useFilters from '@/hooks/useFilters';
 import { filterBy } from '@/utils/filters';
+import CustomCard from '@/components/Cards/CustomCard';
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -127,9 +128,9 @@ const Home = () => {
           </Fragment>
         )}
         {loading && (
-          <div className="flex flex-wrap py-16">
+          <div className="flex flex-wrap py-16 gap-4 justify-center">
             {Array.from(Array(20).keys()).map((key) => (
-              <PokemonCardLoading key={`skeleton-${key}`} />
+              <CustomCard key={`skeleton-${key}`} loading={true} className="w-64" />
             ))}
           </div>
         )}
