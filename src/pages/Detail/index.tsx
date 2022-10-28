@@ -10,7 +10,9 @@ import CONSTANTS from '@/utils/constants';
 import StatisticsChart from '@/components/StatisticsChart';
 import tailwind from '../../../tailwind';
 import CustomCard from '@/components/Cards/CustomCard';
-import { pokemonDebilities } from '@/utils/pokemon';
+import { pokemonWeaknesses, calculatePokemonWeaknesses } from '@/utils/pokemon';
+import { startCase } from 'lodash';
+import { Title } from 'react-head';
 
 const Detail = () => {
   const colors: any = tailwind.theme.colors;
@@ -20,6 +22,10 @@ const Detail = () => {
   const { loading, request } = useFetch();
   const [pokemonData, setPokemonData] = useState<IPokemonData>(pokemonDataInitial);
   const { types, images, name, stats } = pokemonData;
+
+  if (types.length) {
+    calculatePokemonWeaknesses(types);
+  }
 
   const handleGetPokemonDetail = async () => {
     if (!loading && id) {
@@ -35,6 +41,8 @@ const Detail = () => {
 
   return (
     <Fragment>
+      {name && <Title>{`Pokédex | ${startCase(name)} `}</Title>}
+
       <div className="bg-black drop-shadow-md rounded-b-3xl">
         <div className="container">
           <div
@@ -48,22 +56,22 @@ const Detail = () => {
       </div>
 
       <div className="container">
-        <div className="pt-16 pb-6 px-3 flex justify-between items-center">
+        <div className="pt-16 pb-6 px-0 flex justify-between items-center">
           <button
             disabled={Number(id) - 1 === 0}
-            className="cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed enabled:hover:underline flex items-center"
+            className="cursor-pointer pl-1 pr-3 rounded-md disabled:opacity-50 disabled:cursor-not-allowed enabled:hover:underline flex items-center"
             onClick={() => navigate(`/pokemon/${Number(id) - 1}`)}
           >
-            <ChevronLeftIcon className="text-black w-8" />
-            <p className="pl-4 text-lg text-black font-semibold">Prev</p>
+            <ChevronLeftIcon className="p-0.5 text-white w-7 bg-main rounded-full" />
+            <p className="pl-4 text-lg text-main font-semibold">Prev</p>
           </button>
           <button
-            className="cursor-pointer flex items-center"
+            className="cursor-pointer pr-1 pl-3 rounded-md disabled:opacity-50 disabled:cursor-not-allowed enabled:hover:underline flex items-center"
             disabled={Number(id) + 1 === CONSTANTS.LIST_LIMIT}
             onClick={() => navigate(`/pokemon/${Number(id) + 1}`)}
           >
-            <p className="pr-4 text-lg text-black font-semibold hover:underline">Next</p>
-            <ChevronRightIcon className="text-black w-8" />
+            <p className="pr-4 text-lg text-main font-semibold">Next</p>
+            <ChevronRightIcon className="p-0.5 text-white w-7 bg-main rounded-full" />
           </button>
         </div>
 
@@ -117,25 +125,26 @@ const Detail = () => {
                     </li>
                   ))}
               </ul>
-              <h3 className="font-bold mb-2">Debilities</h3>
+              <h3 className="font-bold mb-2">Weaknesses</h3>
               <ul className="flex flex-wrap gap-2 mb-2">
                 {!!types.length &&
-                  pokemonDebilities(types).map((name, idx) => (
+                  calculatePokemonWeaknesses(types).map(({ type }, idx) => (
                     <li
                       key={`item-${idx}`}
-                      style={{ backgroundColor: colors.type[name] }}
+                      style={{ backgroundColor: colors.type[type] }}
                       className="rounded-md h-6 p-1 drop-shadow-lg flex items-center w-fit"
                     >
                       <LazyImage
-                        alt={name}
+                        alt={type}
                         className="w-4 h-4 p-0.5"
-                        src={`/svg/${name}.svg`}
+                        src={`/svg/${type}.svg`}
                         placeholder="/images/placeholder-image.png"
                       />
-                      <p className="text-gray-light capitalize text-sm px-1">{name}</p>
+                      <p className="text-gray-light capitalize text-sm px-1">{type}</p>
                     </li>
                   ))}
               </ul>
+              <h3 className="font-bold mb-2">Stats</h3>
               <StatisticsChart stats={stats} />
             </div>
           </CustomCard>

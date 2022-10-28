@@ -24,7 +24,7 @@ const {
   },
 } = CONSTANTS;
 
-export const debilitiesByType = (type: string) => {
+export const weaknessesByType = (type: string) => {
   switch (type) {
     case BUG:
       return [FLYING, ROCK, FIRE];
@@ -67,11 +67,11 @@ export const debilitiesByType = (type: string) => {
   }
 };
 
-export const pokemonDebilities = (types: Array<IPokemonType>) => {
+export const pokemonWeaknesses = (types: Array<IPokemonType>) => {
   const typeDebilities: Array<string> = [];
 
   types.forEach(({ name }) => {
-    debilitiesByType(name).forEach((type) => {
+    weaknessesByType(name).forEach((type) => {
       if (!typeDebilities.includes(type)) {
         typeDebilities.push(type);
       }
@@ -79,4 +79,43 @@ export const pokemonDebilities = (types: Array<IPokemonType>) => {
   });
 
   return typeDebilities;
+};
+
+const types = {
+  normal: [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0.5, 0, 1, 1, 0.5, 1, 1],
+  fire: [1, 0.5, 0.5, 1, 2, 2, 1, 1, 1, 1, 1, 2, 0.5, 1, 0.5, 1, 2, 1, 1],
+  water: [1, 2, 0.5, 1, 0.5, 1, 1, 1, 2, 1, 1, 1, 2, 1, 0.5, 1, 1, 1, 1],
+  electric: [1, 1, 2, 0.5, 0.5, 1, 1, 1, 0, 2, 1, 1, 1, 1, 0.5, 1, 1, 1, 1],
+  grass: [1, 0.5, 2, 1, 0.5, 1, 1, 0.5, 2, 0.5, 1, 0.5, 2, 1, 0.5, 1, 0.5, 1, 1],
+  ice: [1, 0.5, 0.5, 1, 2, 0.5, 1, 1, 2, 2, 1, 1, 1, 1, 2, 1, 0.5, 1, 1],
+  fighting: [2, 1, 1, 1, 1, 2, 1, 0.5, 1, 0.5, 0.5, 0.5, 2, 0, 1, 2, 2, 0.5, 1],
+  poison: [1, 1, 1, 1, 2, 1, 1, 0.5, 0.5, 1, 1, 1, 0.5, 0.5, 1, 1, 0, 2, 1],
+  ground: [1, 2, 1, 2, 0.5, 1, 1, 2, 1, 0, 1, 0.5, 2, 1, 1, 1, 2, 1, 1],
+  flying: [1, 1, 1, 0.5, 2, 1, 2, 1, 1, 1, 1, 2, 0.5, 1, 1, 1, 0.5, 1, 1],
+  psychic: [1, 1, 1, 1, 1, 1, 2, 2, 1, 1, 0.5, 1, 1, 1, 1, 0, 0.5, 1, 1],
+  bug: [1, 0.5, 1, 1, 2, 1, 0.5, 0.5, 1, 0.5, 2, 1, 1, 0.5, 1, 2, 0.5, 0.5, 1],
+  rock: [1, 2, 1, 1, 1, 2, 0.5, 1, 0.5, 2, 1, 2, 1, 1, 1, 1, 0.5, 1, 1],
+  ghost: [0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 2, 1, 0.5, 1, 1, 1],
+  dragon: [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 0.5, 0, 1],
+  dark: [1, 1, 1, 1, 1, 1, 0.5, 1, 1, 1, 2, 1, 1, 2, 1, 0.5, 1, 0.5, 1],
+  steel: [1, 0.5, 0.5, 0.5, 1, 2, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 0.5, 2, 1],
+  fairy: [1, 0.5, 1, 1, 1, 1, 2, 0.5, 1, 1, 1, 1, 1, 1, 2, 2, 0.5, 1, 1],
+  none: [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+};
+
+export const calculatePokemonWeaknesses = (pokemonTypes: Array<IPokemonType>) => {
+  const typesValues: Array<number[]> = Object.values(types);
+  const typeIdx1: number = Object.keys(types).indexOf(pokemonTypes[0]?.name);
+  const typeIdx2: number = pokemonTypes[1]?.name
+    ? Object.keys(types).indexOf(pokemonTypes[1]?.name)
+    : 18;
+
+  const result: Array<any> = Array.from(Array(18).keys())
+    .map((idx) => ({
+      type: Object.keys(types)[idx],
+      percentageDmg: typesValues[idx][typeIdx1] * typesValues[idx][typeIdx2],
+    }))
+    .filter(({ percentageDmg }) => percentageDmg === 2);
+
+  return result;
 };
