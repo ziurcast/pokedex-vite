@@ -19,8 +19,7 @@
     "react-dom": "^18.2.0",
     "react-head": "^3.4.2",
     "react-redux": "^8.0.4",
-    "react-router-dom": "^6.4.1",
-    "victory": "^36.6.8"
+    "react-router-dom": "^6.4.1"
   },
   "devDependencies": {
     "@babel/core": "^7.19.1",

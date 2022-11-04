@@ -41,5 +41,15 @@ export default {
         DEFAULT: '1rem',
       },
     },
+    extend: {
+      height: {
+        '120': '30rem',
+        '128': '32rem',
+      },
+      minHeight: {
+        '120': '30rem',
+        '128': '32rem',
+      },
+    },
   },
 };

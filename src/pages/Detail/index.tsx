@@ -10,7 +10,7 @@ import CONSTANTS from '@/utils/constants';
 import StatisticsChart from '@/components/StatisticsChart';
 import tailwind from '../../../tailwind';
 import CustomCard from '@/components/Cards/CustomCard';
-import { pokemonWeaknesses, calculatePokemonWeaknesses } from '@/utils/pokemon';
+import { calculatePokemonWeaknesses } from '@/utils/pokemon';
 import { startCase } from 'lodash';
 import { Title } from 'react-head';
 
@@ -80,7 +80,7 @@ const Detail = () => {
             animate={false}
             loading={loading}
             bgColor={colors.type[types[0].name]}
-            className="w-1/3 h-auto cursor-auto"
+            className="h-auto w-full md:w-1/3 md:min-h-120 cursor-auto"
           >
             <div className="py-8 px-4">
               <LazyImage
@@ -97,7 +97,7 @@ const Detail = () => {
             loading={loading}
             loadingSpinner={false}
             bgColor={colors.type[types[0].name]}
-            className="h-auto grow cursor-auto"
+            className="min-h-120 grow cursor-auto"
           >
             <div className="pt-14 p-4">
               <h1 className="capitalize top-0 left-0 absolute rounded-br-lg text-center drop-shadow-md px-4 py-2 bg-black text-white text-3xl font-medium">
@@ -107,17 +107,17 @@ const Detail = () => {
                 </span>
               </h1>
               <h3 className="font-bold mb-2">Type</h3>
-              <ul className="flex flex-wrap gap-2 mb-2">
+              <ul className="flex flex-wrap gap-2 mb-4">
                 {!!types.length &&
                   types.map(({ name }, idx) => (
                     <li
                       key={`item-${idx}`}
                       style={{ backgroundColor: colors.type[name] }}
-                      className="rounded-md h-6 p-1 drop-shadow-lg flex items-center w-fit"
+                      className="rounded-md h-8 p-1 drop-shadow-lg flex items-center w-fit"
                     >
                       <LazyImage
                         alt={name}
-                        className="w-4 h-4 p-0.5"
+                        className="w-6 h-6 p-0.5"
                         src={`/svg/${name}.svg`}
                         placeholder="/images/placeholder-image.png"
                       />
@@ -126,17 +126,17 @@ const Detail = () => {
                   ))}
               </ul>
               <h3 className="font-bold mb-2">Weaknesses</h3>
-              <ul className="flex flex-wrap gap-2 mb-2">
+              <ul className="flex flex-wrap gap-2 mb-4">
                 {!!types.length &&
                   calculatePokemonWeaknesses(types).map(({ type }, idx) => (
                     <li
                       key={`item-${idx}`}
                       style={{ backgroundColor: colors.type[type] }}
-                      className="rounded-md h-6 p-1 drop-shadow-lg flex items-center w-fit"
+                      className="rounded-md h-8 p-1 drop-shadow-lg flex items-center w-fit"
                     >
                       <LazyImage
                         alt={type}
-                        className="w-4 h-4 p-0.5"
+                        className="w-6 h-6 p-0.5"
                         src={`/svg/${type}.svg`}
                         placeholder="/images/placeholder-image.png"
                       />
@@ -145,7 +145,7 @@ const Detail = () => {
                   ))}
               </ul>
               <h3 className="font-bold mb-2">Stats</h3>
-              <StatisticsChart stats={stats} />
+              <StatisticsChart className="w-full md:w-1/2" stats={stats} />
             </div>
           </CustomCard>
         </div>
